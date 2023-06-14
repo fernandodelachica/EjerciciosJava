@@ -1,6 +1,7 @@
 package org.example;
 
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,9 +31,9 @@ public class FileCSV {
 
             }
 
-        } catch (IOException e) {
+        } catch (InvalidClassException e) {
             String errorMsg = "Error en el archivo: ";
-            throw new IOException(errorMsg + pathFile);
+            throw new InvalidLineFormatException(errorMsg + pathFile);
         }
         return people;
     }
