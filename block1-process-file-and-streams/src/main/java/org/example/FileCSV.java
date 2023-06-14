@@ -49,18 +49,28 @@ public class FileCSV {
         if (lineData.length > 1) {
             town = lineData[1];
         } else {
-            town = "Unknown";
+            town = "";
         }
-        int age = 0;
+        int age;
         if (lineData.length > 2) {
-            try {
-                String ageStr = lineData[2];
-                age = Integer.parseInt(ageStr);
-            } catch (NumberFormatException e) {
-                String errorMsg = "El dato de Edad no es compatible";
-                throw new InvalidLineFormatException(errorMsg);
-            }
+            age = parseAge(lineData[2]);
+        } else {
+            age = 0;
         }
         return new Person(name, town, age);
+    }
+
+    private int parseAge(String ageStr) throws InvalidLineFormatException {
+        try {
+            int age = Integer.parseInt(ageStr);
+
+            if (age == 0){
+                return -1;
+            }
+            return age;
+        }catch (NumberFormatException e){
+            String errorMsg = "Edad incorrecta";
+            throw new InvalidLineFormatException(errorMsg);
+        }
     }
 }

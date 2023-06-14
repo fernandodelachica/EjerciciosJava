@@ -36,7 +36,9 @@ public class Person {
         this.age = age;
     }
 
-    public String concatString(){
-        return "Name: " +name+ ". Town: " +town+ ". Age: " +age;
+    public String toString(){
+        return "Name: " + (getName())+
+                ". Town: " + (getTown() != null ? getTown() : "Unknown")+
+                ". Age: " + (getAge() != 0 ? getAge() : 0);
     }
 }
