@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        String pathFile = "/src/main/resources/Archivo.csv";
+        String pathFile = "src/main/resources/Archivo.csv";
         FileCSV fc = new FileCSV();
         FilterCSV fl = new FilterCSV();
 
