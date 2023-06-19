@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--Configuramos la forma de mensaje que aparecerá en Consola-->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%-30(%d %p) %-30.30([%t] %C): %msg%n%throwable</Pattern>
+        </layout>
+    </appender>
+
+    <!--Configuramos la forma de mensaje que aparecerá en el archivo-->
+    <appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/app-logback.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d %p [%t] %C: %msg%n%throwable</Pattern>
+        </encoder>
+
+        <!-- Establecemos el filtro para que solo pase al archivo los Errores-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <!--Cuando el archivo llegue a 10MB se generará otro archivo-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/archived/app-%d{yyyy-MM-dd}.%i-logback.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="File" />
+        <appender-ref ref="Console" />
+    </root>
+
+    <logger name="com.bosonit.formacion" level="DEBUG" additivity="false">
+        <appender-ref ref="File" />
+        <appender-ref ref="Console" />
+    </logger>
+
+</configuration>
