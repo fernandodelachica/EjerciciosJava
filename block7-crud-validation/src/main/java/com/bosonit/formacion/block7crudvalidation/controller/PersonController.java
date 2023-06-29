@@ -1,5 +1,8 @@
 package com.bosonit.formacion.block7crudvalidation.controller;
 
+import com.bosonit.formacion.block7crudvalidation.exception.EntityNotFoundException;
+import com.bosonit.formacion.block7crudvalidation.exception.ErrorResponse;
+import com.bosonit.formacion.block7crudvalidation.exception.UnprocessableEntityException;
 import com.bosonit.formacion.block7crudvalidation.model.dto.PersonInputDto;
 import com.bosonit.formacion.block7crudvalidation.model.dto.PersonOutputDto;
 import com.bosonit.formacion.block7crudvalidation.service.PersonServiceImpl;
@@ -8,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -18,20 +22,19 @@ public class PersonController {
     PersonServiceImpl personService;
 
     @PostMapping
-    public ResponseEntity<PersonOutputDto> addPerson(@RequestBody PersonInputDto person) throws Exception {
+    public ResponseEntity<PersonOutputDto> addPerson(@RequestBody PersonInputDto person) throws UnprocessableEntityException {
         return ResponseEntity.ok().body(personService.addPerson(person));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getPersonById(@PathVariable int id) {
-        try{
-            return ResponseEntity.ok().body(personService.getPersonById(id));
-        } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Persona con el id "+id+" no encontrada");
-        }
+    public ResponseEntity<PersonOutputDto> getPersonById(@PathVariable int id) throws EntityNotFoundException{
+        return ResponseEntity.ok().body(personService.getPersonById(id));
     }
 
-
+    @PutMapping("/{id}")
+    public ResponseEntity<PersonOutputDto> updatePerson(@PathVariable int id, @RequestBody PersonInputDto updatedPerson){
+        return ResponseEntity.ok().body(personService.updatePerson(id, updatedPerson));
+    }
 
     @GetMapping("/usuario/{personUser}")
     public ResponseEntity<?> findPersonByUser(@PathVariable String personUser){
@@ -48,4 +51,23 @@ public class PersonController {
     public List<PersonOutputDto> getAllPerson(){
         return personService.getAllPerson();
     }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<Object> handlerEntityNotFoundException(EntityNotFoundException e){
+        ErrorResponse response = new ErrorResponse();
+        response.setMessage(e.getMessage());
+        response.setTimeStamp(new Date());
+        response.setHttpCode(404);
+        return new ResponseEntity<Object>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UnprocessableEntityException.class)
+    public ResponseEntity<Object> handlerUnprocessableEntityException(UnprocessableEntityException e){
+        ErrorResponse response = new ErrorResponse();
+        response.setMessage(e.getMessage());
+        response.setTimeStamp(new Date());
+        response.setHttpCode(422);
+        return new ResponseEntity<Object>(response, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
 }

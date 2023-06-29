@@ -1,12 +1,15 @@
 package com.bosonit.formacion.block7crudvalidation.exception;
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.http.HttpStatus;
 
 import java.util.Date;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 public class ErrorResponse {
     Date timeStamp;
     int httpCode;
