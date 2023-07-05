@@ -30,13 +30,13 @@ public class Subject {
     LocalDate initialDate;
     LocalDate finishDate;
 
-    /*@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="instructorId")
-    Instructor instructor;*/
+    Instructor instructor;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "studentEnrolled",
+            name = "subject",
             joinColumns = @JoinColumn(name = "subjectId"),
             inverseJoinColumns = @JoinColumn(name = "studentId")
     )
@@ -48,7 +48,7 @@ public class Subject {
         this.comment = subjectInputDto.getComment();
         this.initialDate = subjectInputDto.getInitialDate();
         this.finishDate = subjectInputDto.getInitialDate();
-        this.students = getStudents();
+        //this.students =
     }
 
 }

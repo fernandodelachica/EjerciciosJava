@@ -20,14 +20,4 @@ public class SubjectController {
     @Autowired
     SubjectRepository subjectRepository;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public SubjectOutputDto addSubject(SubjectInputDto subjectInputDto){
-        return subjectService.addSubject(subjectInputDto);
-    }
-
-    @GetMapping
-    public List<SubjectOutputDto> getAllSubject(){
-        return subjectService.getAllSubjects();
-    }
 }
