@@ -26,37 +26,5 @@ public class SubjectServiceImpl implements SubjectService{
     @Autowired
     InstructorRepository instructorRepository;
 
-    /*
-    @Override
-    public SubjectOutputDto addSubject(SubjectInputDto subjectInputDto) {
-        Subject subject = new Subject();
-        List<Student> students = studentRepository.findAllById(subjectInputDto.getStudents());
 
-        if (students.isEmpty()) {
-            throw new EntityNotFoundException("Los ids no existen");
-        }
-        subject.setSubjectName(subjectInputDto.getSubjectName());
-        subject.setComment(subjectInputDto.getComment());
-        subject.setStudents(students);
-        subject.setInitialDate(subjectInputDto.getInitialDate());
-        subject.setFinishDate(subjectInputDto.getFinishDate());
-        subjectRepository.save(subject);
-        return new SubjectOutputDto(subject);
-    }*/
-
-
-    @Override
-    public List<SubjectOutputDto> getAllSubjects(){
-        return subjectRepository.findAll().stream().map(Subject::subjectToSubjectOutputDto).toList();
-
-        }
-    @Override
-    public SubjectOutputDto addSubject(SubjectInputDto subjectInputDto) {
-
-        Subject subject = new Subject(subjectInputDto);
-        List<Student> students = studentRepository.findAllById(subjectInputDto.getStudents());
-
-        subject.setStudents(students);
-        return subjectRepository.save(subject).subjectToSubjectOutputDto();
-    }
 }

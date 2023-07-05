@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface SubjectService {
 
-    public List<SubjectOutputDto> getAllSubjects();
 
-    public SubjectOutputDto addSubject(SubjectInputDto subjectInputDto);
 
 }

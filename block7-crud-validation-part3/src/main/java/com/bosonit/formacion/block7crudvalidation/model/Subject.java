@@ -51,15 +51,4 @@ public class Subject {
         this.students = getStudents();
     }
 
-    public SubjectOutputDto subjectToSubjectOutputDto() {
-        SubjectOutputDto subjectOutputDto = new SubjectOutputDto();
-        subjectOutputDto.setSubjectId(this.subjectId);
-        subjectOutputDto.setSubjectName(this.subjectName);
-        subjectOutputDto.setComment(this.comment);
-        subjectOutputDto.setInitialDate(this.initialDate);
-        subjectOutputDto.setFinishDate(this.finishDate);
-        subjectOutputDto.setStudents(this.students.stream().map(Student::studentToStudentOutputDto).toList()
-        );
-        return subjectOutputDto;
-    }
 }

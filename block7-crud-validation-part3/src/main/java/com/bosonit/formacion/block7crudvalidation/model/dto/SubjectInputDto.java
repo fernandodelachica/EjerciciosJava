@@ -13,7 +13,7 @@ public class SubjectInputDto {
     LocalDate initialDate;
     LocalDate finishDate;
 
-    //Integer instructorId;
+    Integer instructorId;
     List<Integer> students;
 
 }

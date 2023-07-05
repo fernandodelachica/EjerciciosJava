@@ -16,12 +16,8 @@ public class SubjectOutputDto {
     String comment;
     LocalDate initialDate;
     LocalDate finishDate;
-    List<StudentOutputDto> students;
-
-
-
-    //Integer instructorId;
-    //List<Integer> students = new ArrayList<>();
+    Integer instructorId;
+    List<Integer> students;
 
 
 
