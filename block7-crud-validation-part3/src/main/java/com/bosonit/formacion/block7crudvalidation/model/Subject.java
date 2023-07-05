@@ -1,5 +1,7 @@
 package com.bosonit.formacion.block7crudvalidation.model;
 
+import com.bosonit.formacion.block7crudvalidation.model.dto.StudentInputDto;
+import com.bosonit.formacion.block7crudvalidation.model.dto.StudentOutputDto;
 import com.bosonit.formacion.block7crudvalidation.model.dto.SubjectInputDto;
 import com.bosonit.formacion.block7crudvalidation.model.dto.SubjectOutputDto;
 import jakarta.persistence.*;
@@ -10,7 +12,9 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -18,35 +22,44 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Subject {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    Integer studentTopicId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "instructorId")
-    Instructor instructor;
-
-    String topic;
+    Integer subjectId;
+    String subjectName;
     String comment;
-
-    @Column(name = "initialDate")
     LocalDate initialDate;
-
     LocalDate finishDate;
 
+    /*@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name ="instructorId")
+    Instructor instructor;*/
+
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "subject")
-    List<Student > students = new ArrayList<>();
+    @JoinTable(
+            name = "studentEnrolled",
+            joinColumns = @JoinColumn(name = "subjectId"),
+            inverseJoinColumns = @JoinColumn(name = "studentId")
+    )
+    List<Student> students;
 
 
     public Subject(SubjectInputDto subjectInputDto){
-        this.topic = subjectInputDto.getTopic();
+        this.subjectName = subjectInputDto.getSubjectName();
         this.comment = subjectInputDto.getComment();
         this.initialDate = subjectInputDto.getInitialDate();
-        this.finishDate = subjectInputDto.getFinishDate();
-        //this.students
-        //this.instructor
+        this.finishDate = subjectInputDto.getInitialDate();
+        this.students = getStudents();
     }
 
+    public SubjectOutputDto subjectToSubjectOutputDto() {
+        SubjectOutputDto subjectOutputDto = new SubjectOutputDto();
+        subjectOutputDto.setSubjectId(this.subjectId);
+        subjectOutputDto.setSubjectName(this.subjectName);
+        subjectOutputDto.setComment(this.comment);
+        subjectOutputDto.setInitialDate(this.initialDate);
+        subjectOutputDto.setFinishDate(this.finishDate);
+        subjectOutputDto.setStudents(this.students.stream().map(Student::studentToStudentOutputDto).toList()
+        );
+        return subjectOutputDto;
+    }
 }

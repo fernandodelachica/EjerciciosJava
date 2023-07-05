@@ -8,7 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -36,12 +38,8 @@ public class Student {
     @Column(name = "branch", nullable = false)
     String branch;
 
-    @ManyToMany
-    @JoinTable(name = "subject",
-            joinColumns = @JoinColumn(name = "studentId"),
-            inverseJoinColumns = @JoinColumn(name = "topicId")
-    )
-    List<Subject> subjectList;
+    @ManyToMany(mappedBy = "students")
+    List<Subject> subjects;
 
 
     public Student(StudentInputDto studentInputDto){
