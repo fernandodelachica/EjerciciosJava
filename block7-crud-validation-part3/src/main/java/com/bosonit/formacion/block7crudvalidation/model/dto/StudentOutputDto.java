@@ -1,5 +1,7 @@
 package com.bosonit.formacion.block7crudvalidation.model.dto;
 
+import com.bosonit.formacion.block7crudvalidation.model.Student;
+import com.bosonit.formacion.block7crudvalidation.model.Subject;
 import lombok.*;
 
 @Data
@@ -12,4 +14,13 @@ public class StudentOutputDto {
     String comments;
     Integer instructorId;
     String branch;
+
+    public StudentOutputDto(Student student){
+        this.studentId = student.getStudentId();
+        this.personId = student.getPerson().getPersonId();
+        this.numHoursWeek = student.getNumHoursWeek();
+        this.comments = student.getComments();
+        this.instructorId = student.getInstructor().getInstructorId();
+        this.branch = student.getBranch();
+    }
 }

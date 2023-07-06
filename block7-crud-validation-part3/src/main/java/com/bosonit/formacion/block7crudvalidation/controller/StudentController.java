@@ -1,5 +1,6 @@
 package com.bosonit.formacion.block7crudvalidation.controller;
 
+import com.bosonit.formacion.block7crudvalidation.model.dto.StudentFullOutputDto;
 import com.bosonit.formacion.block7crudvalidation.model.dto.StudentInputDto;
 import com.bosonit.formacion.block7crudvalidation.model.dto.StudentOutputDto;
 import com.bosonit.formacion.block7crudvalidation.service.StudentService;
@@ -26,8 +27,17 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<StudentOutputDto> getAllStudents(){
-        return studentService.getAllStudents();
+    public List<StudentOutputDto>getAllStudent(){
+        return studentService.getAllStudent();
+    }
+    @GetMapping("/{type}")
+    public List<StudentOutputDto> getAllStudentsWithPerson(@PathVariable String type){
+        return studentService.getAllStudentsWithPerson(type);
+    }
+
+    @GetMapping("/estudiante/{id}")
+    public StudentFullOutputDto getStudentAndPersonById(@PathVariable int id){
+        return studentService.getStudentAndPersonById(id);
     }
 
     @PutMapping("/{id}")

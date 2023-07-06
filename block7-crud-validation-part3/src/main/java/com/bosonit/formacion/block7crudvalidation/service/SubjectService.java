@@ -9,4 +9,14 @@ import java.util.List;
 public interface SubjectService {
 
     public SubjectOutputDto addSubject(SubjectInputDto subjectInputDto);
+
+    public List<SubjectOutputDto> getAllSubjects();
+
+    public SubjectOutputDto getSubjectById(int id);
+
+    public List<SubjectOutputDto> getSubjectStudentById(int studentId);
+
+    public SubjectOutputDto updateSubject(int id, SubjectInputDto subjectInputDto);
+
+    public void deleteSubject(int id);
 }

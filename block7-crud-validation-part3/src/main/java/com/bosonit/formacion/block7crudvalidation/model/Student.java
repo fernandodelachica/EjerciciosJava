@@ -53,7 +53,7 @@ public class Student {
         this.branch = studentInputDto.getBranch();
     }
 
-    public StudentOutputDto studentToStudentOutputDto(){
+    /*public StudentOutputDto studentToStudentOutputDto(){
         return new StudentOutputDto(
           this.studentId,
           this.person.personId,
@@ -62,5 +62,5 @@ public class Student {
           this.instructor.instructorId,
           this.branch
         );
-    }
+    }*/
 }

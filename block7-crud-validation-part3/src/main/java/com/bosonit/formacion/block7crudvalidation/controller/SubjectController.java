@@ -28,4 +28,25 @@ public class SubjectController {
         return subjectService.addSubject(subjectInputDto);
     }
 
+    @GetMapping
+    public List<SubjectOutputDto> getAllSubjects(){
+        return subjectService.getAllSubjects();
+    }
+
+
+    @GetMapping("/subject/{id}")
+    public List<SubjectOutputDto> getSubjectStudentById(@PathVariable int id){
+        return subjectService.getSubjectStudentById(id);
+    }
+
+    @PutMapping("/{id}")
+    public SubjectOutputDto updateSubject(@PathVariable int id, @RequestBody SubjectInputDto subjectInputDto){
+        return subjectService.updateSubject(id, subjectInputDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteSubject(@PathVariable int id){
+        subjectService.deleteSubject(id);
+    }
+
 }
