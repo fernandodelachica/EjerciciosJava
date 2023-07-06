@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,7 +21,7 @@ import java.util.Set;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    int studentId;
+    Integer studentId;
 
     @OneToOne
     @JoinColumn(name = "personId")
@@ -39,7 +40,7 @@ public class Student {
     String branch;
 
     @ManyToMany(mappedBy = "students")
-    List<Subject> subjects;
+    Set<Subject> subjects;
 
 
     public Student(StudentInputDto studentInputDto){

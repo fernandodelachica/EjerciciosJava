@@ -1,18 +1,19 @@
 package com.bosonit.formacion.block7crudvalidation.model;
 
-import com.bosonit.formacion.block7crudvalidation.model.dto.StudentInputDto;
-import com.bosonit.formacion.block7crudvalidation.model.dto.StudentOutputDto;
 import com.bosonit.formacion.block7crudvalidation.model.dto.SubjectInputDto;
-import com.bosonit.formacion.block7crudvalidation.model.dto.SubjectOutputDto;
+import com.bosonit.formacion.block7crudvalidation.repository.StudentRepository;
+import com.bosonit.formacion.block7crudvalidation.service.StudentService;
+import com.bosonit.formacion.block7crudvalidation.service.SubjectService;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,13 +35,14 @@ public class Subject {
     @JoinColumn(name ="instructorId")
     Instructor instructor;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(
-            name = "subject",
+            name = "subject_student",
             joinColumns = @JoinColumn(name = "subjectId"),
             inverseJoinColumns = @JoinColumn(name = "studentId")
     )
-    List<Student> students;
+    Set<Student> students;
+
 
 
     public Subject(SubjectInputDto subjectInputDto){
@@ -48,7 +50,6 @@ public class Subject {
         this.comment = subjectInputDto.getComment();
         this.initialDate = subjectInputDto.getInitialDate();
         this.finishDate = subjectInputDto.getInitialDate();
-        //this.students =
     }
 
 }

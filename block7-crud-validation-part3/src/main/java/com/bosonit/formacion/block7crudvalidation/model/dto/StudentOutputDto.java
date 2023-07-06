@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudentOutputDto {
-    int studentId;
+    Integer studentId;
     int personId;
     Integer numHoursWeek;
     String comments;

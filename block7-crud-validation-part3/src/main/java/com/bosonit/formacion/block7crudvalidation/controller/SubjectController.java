@@ -1,5 +1,7 @@
 package com.bosonit.formacion.block7crudvalidation.controller;
 
+import com.bosonit.formacion.block7crudvalidation.model.dto.StudentInputDto;
+import com.bosonit.formacion.block7crudvalidation.model.dto.StudentOutputDto;
 import com.bosonit.formacion.block7crudvalidation.model.dto.SubjectInputDto;
 import com.bosonit.formacion.block7crudvalidation.model.dto.SubjectOutputDto;
 import com.bosonit.formacion.block7crudvalidation.repository.SubjectRepository;
@@ -19,5 +21,11 @@ public class SubjectController {
 
     @Autowired
     SubjectRepository subjectRepository;
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public SubjectOutputDto addSubject(@RequestBody SubjectInputDto subjectInputDto){
+        return subjectService.addSubject(subjectInputDto);
+    }
 
 }
