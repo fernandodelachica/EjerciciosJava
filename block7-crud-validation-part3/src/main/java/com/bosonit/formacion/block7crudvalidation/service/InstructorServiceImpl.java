@@ -1,16 +1,14 @@
 package com.bosonit.formacion.block7crudvalidation.service;
 
 import com.bosonit.formacion.block7crudvalidation.exception.EntityNotFoundException;
-import com.bosonit.formacion.block7crudvalidation.exception.UnprocessableEntityException;
 import com.bosonit.formacion.block7crudvalidation.model.Instructor;
 import com.bosonit.formacion.block7crudvalidation.model.Person;
+import com.bosonit.formacion.block7crudvalidation.model.dto.InstructorFullOutputDto;
 import com.bosonit.formacion.block7crudvalidation.model.dto.InstructorInputDto;
 import com.bosonit.formacion.block7crudvalidation.model.dto.InstructorOutputDto;
 import com.bosonit.formacion.block7crudvalidation.repository.InstructorRepository;
 import com.bosonit.formacion.block7crudvalidation.repository.PersonRepository;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +31,14 @@ public class InstructorServiceImpl implements InstructorService {
         instructor.setComments(instructorInputDto.getComments());
         instructor.setBranch(instructorInputDto.getBranch());
         return instructorRepository.save(instructor).instructorToInstructorOutputDto();
+    }
+
+    public InstructorOutputDto getInstructorById(int id, String outputType){
+        Instructor instructor = instructorRepository.findById(id).orElseThrow(()->
+                new EntityNotFoundException("El profesor con el id "+id+" no se ha encontrado"));
+        if(outputType.equals("full")){
+            return new InstructorFullOutputDto(instructor);
+        } else return new InstructorOutputDto(instructor);
     }
 
     @Override

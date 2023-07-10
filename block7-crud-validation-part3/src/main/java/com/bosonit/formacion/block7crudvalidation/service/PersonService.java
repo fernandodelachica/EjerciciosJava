@@ -1,10 +1,9 @@
 package com.bosonit.formacion.block7crudvalidation.service;
 
-import com.bosonit.formacion.block7crudvalidation.exception.EntityNotFoundException;
 import com.bosonit.formacion.block7crudvalidation.exception.UnprocessableEntityException;
+import com.bosonit.formacion.block7crudvalidation.model.dto.InstructorOutputDto;
 import com.bosonit.formacion.block7crudvalidation.model.dto.PersonInputDto;
 import com.bosonit.formacion.block7crudvalidation.model.dto.PersonOutputDto;
-import org.hibernate.action.internal.EntityActionVetoException;
 
 import java.util.List;
 
@@ -13,9 +12,13 @@ public interface PersonService {
 
     PersonOutputDto updatePerson(int id, PersonInputDto person) throws UnprocessableEntityException;
 
-    PersonOutputDto getPersonById(int id) throws EntityNotFoundException;
-
     List<PersonOutputDto> getAllPerson();
 
     List<PersonOutputDto> getAllPersonByUser(String personUser);
+
+    List<PersonOutputDto> getPersons(String outputType);
+
+    PersonOutputDto getPersonById(int id, String outputType);
+
+    InstructorOutputDto getInstructor(int id);
 }

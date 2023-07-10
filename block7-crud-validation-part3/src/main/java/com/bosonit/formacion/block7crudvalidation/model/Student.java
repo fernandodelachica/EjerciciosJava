@@ -1,16 +1,11 @@
 package com.bosonit.formacion.block7crudvalidation.model;
 
 import com.bosonit.formacion.block7crudvalidation.model.dto.StudentInputDto;
-import com.bosonit.formacion.block7crudvalidation.model.dto.StudentOutputDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,16 +18,17 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Integer studentId;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "personId")
     Person person;
 
     @Column(name = "num_hours_week", nullable = false)
     Integer numHoursWeek;
 
+    @Column
     String comments;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "instructorId")
     Instructor instructor;
 
@@ -53,14 +49,4 @@ public class Student {
         this.branch = studentInputDto.getBranch();
     }
 
-    /*public StudentOutputDto studentToStudentOutputDto(){
-        return new StudentOutputDto(
-          this.studentId,
-          this.person.personId,
-          this.numHoursWeek,
-          this.comments,
-          this.instructor.instructorId,
-          this.branch
-        );
-    }*/
 }

@@ -4,11 +4,8 @@ import com.bosonit.formacion.block7crudvalidation.model.dto.StudentFullOutputDto
 import com.bosonit.formacion.block7crudvalidation.model.dto.StudentInputDto;
 import com.bosonit.formacion.block7crudvalidation.model.dto.StudentOutputDto;
 import com.bosonit.formacion.block7crudvalidation.service.StudentService;
-import com.bosonit.formacion.block7crudvalidation.service.StudentServiceImpl;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,18 +23,24 @@ public class StudentController {
         return studentService.addStudent(studentInputDto);
     }
 
+
     @GetMapping
-    public List<StudentOutputDto>getAllStudent(){
-        return studentService.getAllStudent();
+    public List<StudentOutputDto>getAllStudent(@RequestParam(defaultValue = "simple") String outputType){
+        return studentService.getAllStudent(outputType);
     }
-    @GetMapping("/{type}")
-    public List<StudentOutputDto> getAllStudentsWithPerson(@PathVariable String type){
-        return studentService.getAllStudentsWithPerson(type);
+    @GetMapping("/full")
+    public List<StudentOutputDto> getAllStudentsWithPerson(){
+        return studentService.getAllStudentsWithPerson();
     }
 
-    @GetMapping("/estudiante/{id}")
-    public StudentFullOutputDto getStudentAndPersonById(@PathVariable int id){
-        return studentService.getStudentAndPersonById(id);
+    @GetMapping("/{id}")
+    public StudentOutputDto getStudentByID(@PathVariable int id, @RequestParam(defaultValue = "simple") String ouputType){
+        return studentService.getStudentById(id, ouputType);
+    }
+
+    @GetMapping("/full/{id}")
+    public StudentFullOutputDto getStudentFullById(@PathVariable int id){
+        return studentService.getStudentFullById(id);
     }
 
     @PutMapping("/{id}")
@@ -48,5 +51,18 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public void deleteStudent(@PathVariable int id){
         studentService.deleteStudent(id);
+    }
+
+
+    @PutMapping("/subjectsAdd/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public StudentOutputDto addSubjectstoStudent(@PathVariable int id, @RequestBody List<Integer> subjectIdsInput){
+        return studentService.addSubjectstoStudent(id, subjectIdsInput);
+    }
+
+    @PutMapping("/asignaturaDelete/{id}")
+    @ResponseStatus(HttpStatus.GONE)
+    public StudentOutputDto deleteSubjectToStudent(@PathVariable int id, @RequestBody List<Integer> subjectIdsInput){
+        return studentService.deleteSubjectToStudent(id, subjectIdsInput);
     }
 }

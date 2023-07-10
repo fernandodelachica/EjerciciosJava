@@ -14,4 +14,6 @@ public interface InstructorService {
     public InstructorOutputDto updateInstructor(int id, InstructorInputDto instructorInputDto);
 
     public void deleteInstructor(int id);
+
+    InstructorOutputDto getInstructorById(int id, String outputType);
 }

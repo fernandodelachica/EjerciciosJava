@@ -1,12 +1,13 @@
 package com.bosonit.formacion.block7crudvalidation.controller;
 
+import com.bosonit.formacion.block7crudvalidation.config.feign.InstructorFeign;
 import com.bosonit.formacion.block7crudvalidation.exception.EntityNotFoundException;
 import com.bosonit.formacion.block7crudvalidation.exception.ErrorResponse;
 import com.bosonit.formacion.block7crudvalidation.exception.UnprocessableEntityException;
+import com.bosonit.formacion.block7crudvalidation.model.dto.InstructorOutputDto;
 import com.bosonit.formacion.block7crudvalidation.model.dto.PersonInputDto;
 import com.bosonit.formacion.block7crudvalidation.model.dto.PersonOutputDto;
 import com.bosonit.formacion.block7crudvalidation.service.PersonService;
-import com.bosonit.formacion.block7crudvalidation.service.PersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,15 +23,23 @@ public class PersonController {
     @Autowired
     PersonService personService;
 
+    @Autowired
+    InstructorFeign instructorFeign;
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PersonOutputDto addPerson(@RequestBody PersonInputDto person) throws UnprocessableEntityException {
+    public PersonOutputDto addPerson(@RequestBody PersonInputDto person){
         return personService.addPerson(person);
     }
 
     @GetMapping("/{id}")
-    public PersonOutputDto getPersonById(@PathVariable int id) throws EntityNotFoundException{
-        return personService.getPersonById(id);
+    public PersonOutputDto getPersonById(@PathVariable int id, @RequestParam(defaultValue = "simple") String outputType){
+        return personService.getPersonById(id, outputType);
+    }
+
+    @GetMapping
+    public List<PersonOutputDto> getPersons(@RequestParam(defaultValue = "simple") String outputType){
+        return personService.getPersons(outputType);
     }
 
     @PutMapping("/{id}")
@@ -49,7 +58,7 @@ public class PersonController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<PersonOutputDto> getAllPerson(){
         return personService.getAllPerson();
     }
@@ -70,6 +79,18 @@ public class PersonController {
         response.setTimeStamp(new Date());
         response.setHttpCode(422);
         return new ResponseEntity<Object>(response, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    //RestTemplate 8081
+    @GetMapping("/profesor/rest/{id}")
+    public InstructorOutputDto getInstructor(@PathVariable int id){
+        return personService.getInstructor(id);
+    }
+
+    //Feign 8081
+    @GetMapping("/profesor/{id}")
+    public InstructorOutputDto getInstructorFeign(@PathVariable int id){
+        return instructorFeign.getTeacher(id);
     }
 
 }

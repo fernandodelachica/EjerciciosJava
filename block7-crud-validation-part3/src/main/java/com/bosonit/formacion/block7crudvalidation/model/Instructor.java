@@ -17,12 +17,12 @@ import java.util.List;
 @NoArgsConstructor
 public class Instructor {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer instructorId;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "personId")
-    public Person person;
+    Person person;
 
     String comments;
     @Column(name = "branch", nullable = false)
@@ -40,7 +40,7 @@ public class Instructor {
     public InstructorOutputDto instructorToInstructorOutputDto(){
         return new InstructorOutputDto(
                 this.instructorId,
-                this.person.personId,
+                this.person.getPersonId(),
                 this.comments,
                 this.branch
         );

@@ -5,14 +5,11 @@ import com.bosonit.formacion.block7crudvalidation.exception.UnprocessableEntityE
 import com.bosonit.formacion.block7crudvalidation.model.Instructor;
 import com.bosonit.formacion.block7crudvalidation.model.Student;
 import com.bosonit.formacion.block7crudvalidation.model.Subject;
-import com.bosonit.formacion.block7crudvalidation.model.dto.StudentOutputDto;
 import com.bosonit.formacion.block7crudvalidation.model.dto.SubjectInputDto;
 import com.bosonit.formacion.block7crudvalidation.model.dto.SubjectOutputDto;
 import com.bosonit.formacion.block7crudvalidation.repository.InstructorRepository;
 import com.bosonit.formacion.block7crudvalidation.repository.StudentRepository;
 import com.bosonit.formacion.block7crudvalidation.repository.SubjectRepository;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import org.hibernate.boot.jaxb.hbm.spi.SubEntityInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

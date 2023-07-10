@@ -32,6 +32,11 @@ public class InstructorController {
         return instructorService.getAllInstructors();
     }
 
+    @GetMapping("/{id}")
+    public InstructorOutputDto getInstructorById(@PathVariable int id, @RequestParam(defaultValue = "simple") String outputType){
+        return instructorService.getInstructorById(id, outputType);
+    }
+
     //UPDATE
     @PutMapping("/{id}")
     public InstructorOutputDto updateInstructor(@PathVariable int id, @RequestBody InstructorInputDto instructorInputDto){

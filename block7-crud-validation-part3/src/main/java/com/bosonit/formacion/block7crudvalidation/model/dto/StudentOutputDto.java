@@ -1,7 +1,6 @@
 package com.bosonit.formacion.block7crudvalidation.model.dto;
 
 import com.bosonit.formacion.block7crudvalidation.model.Student;
-import com.bosonit.formacion.block7crudvalidation.model.Subject;
 import lombok.*;
 
 @Data

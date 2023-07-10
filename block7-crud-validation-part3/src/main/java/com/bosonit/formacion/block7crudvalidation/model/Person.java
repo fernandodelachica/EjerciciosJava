@@ -15,22 +15,49 @@ import java.time.LocalDate;
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int personId;
-    String personUser;
+    private int personId;
+
+    @Column
+    private String personUser;
+
+    @Column
     String password;
+
+    @Column
     String name;
+
+    @Column
     String surname;
+
+    @Column
     String companyEmail;
+
+    @Column
     String personalEmail;
+
+    @Column
     String city;
+
+    @Column
     Boolean active;
+
+    @Column
     LocalDate createdDate;
+
+    @Column
     String urlImage;
+
+    @Column
     LocalDate terminationDate;
+
+    @OneToOne(mappedBy ="person")
+    Student student;
+
+    @OneToOne(mappedBy ="person")
+    Instructor instructor;
 
 
     public Person(PersonInputDto personInputDto){
-        this.personId = personInputDto.getPersonId();
         this.personUser = personInputDto.getPersonUser();
         this.password = personInputDto.getPassword();
         this.name = personInputDto.getName();

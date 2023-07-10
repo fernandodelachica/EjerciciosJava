@@ -34,7 +34,7 @@ public class SubjectController {
     }
 
 
-    @GetMapping("/subject/{id}")
+    @GetMapping("/estudiante/{id}")
     public List<SubjectOutputDto> getSubjectStudentById(@PathVariable int id){
         return subjectService.getSubjectStudentById(id);
     }
