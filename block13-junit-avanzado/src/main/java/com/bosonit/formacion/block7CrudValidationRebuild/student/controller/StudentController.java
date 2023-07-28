@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/student")
@@ -28,12 +29,12 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public StudentOutputDto updateStudent(@PathVariable int id, @Valid @RequestBody StudentInputDto studentInputDto){
+    public StudentOutputDto updateStudent(@PathVariable int id, @RequestBody StudentInputDto studentInputDto){
         return studentService.updateStudentById(id, studentInputDto);
     }
 
-    @PutMapping("/addSubject/{id}")
-    public StudentOutputDto addSubjectToStudent(@PathVariable int id, @RequestBody List<Integer> subjectsIds){
+    @PutMapping("/{id}/addSubject")
+    public StudentOutputDto addSubjectToStudent(@PathVariable int id, @RequestBody Set<Integer> subjectsIds){
         return studentService.addSubjectToStudent(id, subjectsIds);
     }
 
@@ -60,7 +61,7 @@ public class StudentController {
     @DeleteMapping("/{id}/deleteSubject")
     public void deleteSubjectToStudent(
             @PathVariable int id,
-            @RequestBody List<Integer> subjectsIds){
+            @RequestBody Set<Integer> subjectsIds){
         studentService.deleteSubjectToStudent(id, subjectsIds);
     }
 

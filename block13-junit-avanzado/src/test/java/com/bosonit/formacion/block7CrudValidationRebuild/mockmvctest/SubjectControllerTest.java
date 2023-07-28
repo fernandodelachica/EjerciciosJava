@@ -64,7 +64,7 @@ public class SubjectControllerTest {
         subject.setFinishDate(LocalDate.parse("2022-12-01"));
         subject.setInitialDate(LocalDate.parse("2020-01-01"));
         subject.setInstructor(new Instructor());
-        subject.setStudents(new ArrayList<>());
+        subject.setStudents(new HashSet<>());
 
         when(subjectRepository.findById(1)).thenReturn(Optional.of(subject));
     }

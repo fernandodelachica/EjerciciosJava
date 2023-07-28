@@ -14,7 +14,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class SubjectServiceImpl implements SubjectService{
@@ -37,7 +39,7 @@ public class SubjectServiceImpl implements SubjectService{
         Instructor instructor = instructorRepository.findById(subjectInputDto.getInstructorId()).orElseThrow(()->
                 new EntityNotFoundException("El id del profesor "+subjectInputDto.getInstructorId()+ NOTFOUNDSTRING));
 
-        List<Student> students = findAndAddStudents(subjectInputDto);
+        Set<Student> students = findAndAddStudents(subjectInputDto);
 
         newSubject.setInstructor(instructor);
         newSubject.setStudents(students);
@@ -78,15 +80,14 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
 
-
-
     //Métodos
     private Subject checkAndUpdateSubject(SubjectInputDto subjectInputDto, Subject subjectFound) {
-        Instructor updatedInstructor = instructorRepository.findById(subjectInputDto.getInstructorId()).orElseThrow(()->
+        if(subjectInputDto.getInstructorId() != null){
+            Instructor updatedInstructor = instructorRepository.findById(subjectInputDto.getInstructorId()).orElseThrow(()->
                     new EntityNotFoundException("El profesor con el id "+ subjectInputDto.getInstructorId()+ NOTFOUNDSTRING));
             subjectFound.setInstructor(updatedInstructor);
-
-        if (subjectInputDto.getStudents() != null){
+        }
+        if (!subjectInputDto.getStudents().isEmpty()){
             subjectFound.setStudents(findAndAddStudents(subjectInputDto));
         }
         if (subjectInputDto.getSubjectName() != null && !subjectInputDto.getSubjectName().equals("")){
@@ -104,8 +105,8 @@ public class SubjectServiceImpl implements SubjectService{
         return subjectFound;
     }
 
-    private List<Student> findAndAddStudents(SubjectInputDto subjectInputDto) {
-        List<Student> students = new ArrayList<>();
+    private Set<Student> findAndAddStudents(SubjectInputDto subjectInputDto) {
+        Set<Student> students = new HashSet<>();
         for (Integer  studentId : subjectInputDto.getStudents()){
             Student student = studentRepository.findById(studentId).orElseThrow(()->
                     new EntityNotFoundException("El id del estudiante "+studentId+ NOTFOUNDSTRING));

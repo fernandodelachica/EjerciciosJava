@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class StudentServiceImpl implements StudentService{
@@ -67,6 +68,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
 
+    @Override
     public void deleteStudentById(int id){
         studentRepository.findById(id).orElseThrow(()->
                 new EntityNotFoundException("El estudiante con el id "+id+" no se ha encontrado."));
@@ -96,7 +98,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public StudentOutputDto addSubjectToStudent(int studentId, List<Integer> subjectsIds){
+    public StudentOutputDto addSubjectToStudent(int studentId, Set<Integer> subjectsIds){
         Student student = studentRepository.findById(studentId).orElseThrow(()->
                 new EntityNotFoundException("El estudiante con el id "+studentId+" no se ha encotrado"));
         for (Integer id : subjectsIds){
@@ -113,7 +115,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public void deleteSubjectToStudent(int studentId, List<Integer> subjectsIds){
+    public void deleteSubjectToStudent(int studentId, Set<Integer> subjectsIds){
         Student student = studentRepository.findById(studentId).orElseThrow(()->
                 new EntityNotFoundException("El estudiante con el id "+studentId+" no se ha encotrado"));
         for (Integer id : subjectsIds) {
@@ -122,8 +124,8 @@ public class StudentServiceImpl implements StudentService{
             if (student.getSubjects().contains(subject)) {
                 student.getSubjects().remove(subject);
             }
-            studentRepository.save(student);
         }
+        studentRepository.save(student);
     }
 
 

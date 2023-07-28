@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -131,9 +132,9 @@ public class StudentControllerTest {
     public void getAllStudents_OK() throws Exception {
         List<Student> studentList = new ArrayList<>();
         studentList.add(
-                new Student(1, 40, "Comments1", "Branch1", new Person(), new Instructor(), new ArrayList<>()));
+                new Student(1, 40, "Comments1", "Branch1", new Person(), new Instructor(), new HashSet<>()));
         studentList.add(
-                new Student(2, 36, "Comments2", "Branch2", new Person(), new Instructor(), new ArrayList<>()));
+                new Student(2, 36, "Comments2", "Branch2", new Person(), new Instructor(), new HashSet<>()));
 
         List<StudentOutputDto> studentOutputList = new ArrayList<>();
         for (Student student : studentList){

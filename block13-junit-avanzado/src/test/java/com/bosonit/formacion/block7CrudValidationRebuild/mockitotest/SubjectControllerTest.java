@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
@@ -40,7 +41,7 @@ public class SubjectControllerTest {
         subjectInputDto.setInitialDate(LocalDate.parse("2020-12-01"));
         subjectInputDto.setFinishDate(LocalDate.parse("2023-07-01"));
         subjectInputDto.setInstructorId(1);
-        subjectInputDto.setStudents(Arrays.asList(1,2));
+        subjectInputDto.setStudents(Set.of(1, 2));
 
         Subject newSubject = new Subject(subjectInputDto);
 

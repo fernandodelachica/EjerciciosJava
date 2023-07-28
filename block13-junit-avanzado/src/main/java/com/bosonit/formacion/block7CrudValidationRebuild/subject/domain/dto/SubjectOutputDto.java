@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Getter
@@ -18,7 +20,7 @@ public class SubjectOutputDto {
     private LocalDate initialDate;
     private LocalDate finishDate;
     private Integer instructorId;
-    private List<Integer> students;
+    private Set<Integer> students;
 
     public SubjectOutputDto(Subject subject){
         this.subjectId = subject.getSubjectId();
@@ -31,7 +33,7 @@ public class SubjectOutputDto {
             this.instructorId = subject.getInstructor().getInstructorId();
         }
         if(subject.getStudents() != null){
-            this.students = subject.getStudents().stream().map(Student::getStudentId).toList();
+            this.students = subject.getStudents().stream().map(Student::getStudentId).collect(Collectors.toSet());
         }
     }
 }

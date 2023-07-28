@@ -1,8 +1,12 @@
 package com.bosonit.formacion.block7CrudValidationRebuild.student.domain.dto;
 
 import com.bosonit.formacion.block7CrudValidationRebuild.student.domain.Student;
+import com.bosonit.formacion.block7CrudValidationRebuild.subject.domain.Subject;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter

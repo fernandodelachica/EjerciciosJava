@@ -12,6 +12,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -44,13 +45,8 @@ public class Subject {
     Instructor instructor;
 
 
-    @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "subject_student",
-            joinColumns = @JoinColumn(name = "subjectId"),
-            inverseJoinColumns = @JoinColumn(name = "studentId")
-    )
-    List<Student> students;
+    @ManyToMany(mappedBy = "subjects")
+    Set<Student> students;
 
     public Subject(SubjectInputDto subjectInputDto){
         this.subjectName = subjectInputDto.getSubjectName();

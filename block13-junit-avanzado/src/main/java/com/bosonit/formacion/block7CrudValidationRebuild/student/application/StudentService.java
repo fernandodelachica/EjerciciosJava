@@ -4,6 +4,7 @@ import com.bosonit.formacion.block7CrudValidationRebuild.student.domain.dto.Stud
 import com.bosonit.formacion.block7CrudValidationRebuild.student.domain.dto.StudentOutputDto;
 
 import java.util.List;
+import java.util.Set;
 
 public interface StudentService {
 
@@ -17,8 +18,8 @@ public interface StudentService {
 
     void deleteStudentById(int id);
 
-    StudentOutputDto addSubjectToStudent(int studentId, List<Integer> subjectsIds);
+    StudentOutputDto addSubjectToStudent(int studentId, Set<Integer> subjectsIds);
 
-    void deleteSubjectToStudent(int studentId, List<Integer> subjectsIds);
+    void deleteSubjectToStudent(int studentId, Set<Integer> subjectsIds);
 
 }

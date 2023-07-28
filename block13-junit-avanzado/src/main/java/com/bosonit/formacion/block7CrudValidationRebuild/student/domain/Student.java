@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -44,8 +45,12 @@ public class Student {
     @JoinColumn(name = "instructorId")
     private Instructor instructor;
 
-    @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL)
-    private List<Subject> subjects;
+    @ManyToMany
+    @JoinTable(
+            name = "student_subjects",
+            joinColumns = @JoinColumn(name = "studentId"),
+            inverseJoinColumns = @JoinColumn(name = "subjectId"))
+    Set<Subject> subjects;
 
 
     public Student(StudentInputDto studentInputDto){

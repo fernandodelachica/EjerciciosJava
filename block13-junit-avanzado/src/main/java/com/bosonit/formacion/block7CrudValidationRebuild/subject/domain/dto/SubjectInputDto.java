@@ -7,7 +7,9 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -25,5 +27,5 @@ public class SubjectInputDto {
     @NotNull(message = "El campo instructorId debe contener un valor")
     private Integer instructorId;
 
-    private List<Integer> students = new ArrayList<>();
+    private Set<Integer> students = new HashSet<>();
 }

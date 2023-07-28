@@ -32,7 +32,7 @@ public class SubjectController {
     }
 
     @PutMapping("/{id}")
-    public SubjectOutputDto updateSubject(@PathVariable int id, @Valid @RequestBody SubjectInputDto subjectInputDto){
+    public SubjectOutputDto updateSubject(@PathVariable int id, @RequestBody SubjectInputDto subjectInputDto){
         return subjectService.updateSubjectById(id, subjectInputDto);
     }
 
