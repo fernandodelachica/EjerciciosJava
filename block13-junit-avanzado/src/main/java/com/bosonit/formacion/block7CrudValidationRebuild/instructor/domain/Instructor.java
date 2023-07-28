@@ -49,13 +49,4 @@ public class Instructor {
         this.person = new Person();
         this.person.setPersonId(instructorInputDto.getPersonId());
     }
-
-    public Instructor(Integer instructorId, String comments, String branch, Person person) {
-        this.instructorId = instructorId;
-        this.comments = comments;
-        this.branch = branch;
-        this.person = person;
-    }
-
-
 }

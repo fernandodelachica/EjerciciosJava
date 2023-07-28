@@ -107,7 +107,8 @@ public class StudentControllerTest {
         updateStudent.setInstructor(
                 new Instructor(2, "Comments1", "Branch1",
                         new Person(2, "Usuario2", "pass123", "Nombre2", "surname2", "company2@email.com", "personal2@email.com", "Ciudad2",
-                                    false, parse("2012-12-03T23:00:00.000+00:00"), "urlImage1.png", parse("2023-04-01T23:00:00.000+00:00"), null, null)));
+                                false, parse("2012-12-03T23:00:00.000+00:00"), "urlImage1.png", parse("2023-04-01T23:00:00.000+00:00"), null, null),
+                        null));
 
         StudentOutputDto updateStudentOutput = new StudentOutputDto(updateStudent);
 
