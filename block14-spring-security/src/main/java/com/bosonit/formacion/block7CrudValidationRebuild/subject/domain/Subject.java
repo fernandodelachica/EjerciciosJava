@@ -44,7 +44,11 @@ public class Subject {
     Instructor instructor;
 
 
-    @ManyToMany(mappedBy = "subjects")
+    @ManyToMany
+    @JoinTable(
+            name = "student_subjects",
+            joinColumns = @JoinColumn(name = "subjectId"),
+            inverseJoinColumns = @JoinColumn(name = "studentId"))
     Set<Student> students;
 
     public Subject(SubjectInputDto subjectInputDto){

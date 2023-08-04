@@ -42,11 +42,7 @@ public class Student {
     @JoinColumn(name = "instructorId")
     private Instructor instructor;
 
-    @ManyToMany
-    @JoinTable(
-            name = "student_subjects",
-            joinColumns = @JoinColumn(name = "studentId"),
-            inverseJoinColumns = @JoinColumn(name = "subjectId"))
+    @ManyToMany(mappedBy = "students")
     Set<Subject> subjects;
 
 
