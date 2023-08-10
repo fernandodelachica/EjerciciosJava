@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+
+  eureka-naming-server:
+    container_name: eureka-naming-server
+    build:
+      context: ./eureka-naming-server
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+
+  backend:
+    container_name: backend-service
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      spring.datasource.url: jdbc:h2:file:~/backend;AUTO_SERVER=TRUE
+      spring.datasource.username: fd
+      spring.datasource.password:
+    depends_on:
+      - eureka-naming-server
+
+  backend-frontend:
+    container_name: backend-frontend-service
+    build:
+      context: ./backend-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      spring.datasource.url: jdbc:h2:file:~/back-front;AUTO_SERVER=TRUE
+      spring.datasource.username: fd
+      spring.datasource.password:
+    depends_on:
+      - eureka-naming-server
+      - backend
+
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      - eureka-naming-server
+      - backend
+      - backend-frontend
+
