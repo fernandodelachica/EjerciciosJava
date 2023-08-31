@@ -1,0 +1,40 @@
+type Mutation{
+    addProduct(productInputDto:ProductInputDto):ProductOutputDto,
+    updateProductById(id:String,productInputDto:ProductInputDto):ProductOutputDto,
+    deleteProductById(id:String):String,
+    addCategory(categoryInputDto:CategoryInputDto):CategoryOutputDto,
+    updateCategoryById(id:Float, categoryInputDto:CategoryInputDto):CategoryOutputDto,
+    deleteCategoryById(id:Float):String
+}
+
+type Query{
+    productList : [ProductOutputDto],
+    getProductById(id : String) : ProductOutputDto,
+    getAllCategories : [CategoryOutputDto],
+    getCategoryById(id : Float) : CategoryOutputDto
+}
+
+type ProductOutputDto{
+    id : String,
+    name : String,
+    price : Float
+    quantity : Int,
+    category: CategoryOutputDto
+}
+
+type CategoryOutputDto{
+    id: Float,
+    name: String,
+    products: [ProductOutputDto]
+}
+
+input ProductInputDto{
+    name : String,
+    price : Float,
+    quantity : Int,
+    category : Float
+}
+
+input CategoryInputDto{
+    name : String
+}
